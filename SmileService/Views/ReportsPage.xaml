@@ -1,0 +1,41 @@
+﻿<Page x:Class="SmileService.Views.ReportsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="450"
+      Title="Финансовая отчетность" Background="White" Width="859">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Финансовая отчетность ООО «Смайл»" FontSize="20" FontWeight="Bold" Foreground="#1976D2" Margin="0,0,0,20"/>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,20">
+            <TextBlock Text="Период с:" VerticalAlignment="Center" Margin="0,0,8,0" FontSize="14"/>
+            <DatePicker x:Name="DpStart" Width="130" Height="30" VerticalContentAlignment="Center"/>
+
+            <TextBlock Text="по:" VerticalAlignment="Center" Margin="15,0,8,0" FontSize="14"/>
+            <DatePicker x:Name="DpEnd" Width="130" Height="30" VerticalContentAlignment="Center"/>
+
+            <Button Content="Сформировать" Width="130" Height="30" Margin="20,0,0,0" Background="#1976D2" Foreground="White" FontWeight="SemiBold" Click="BtnGenerate_Click"/>
+
+            <Button Content="Экспорт в Excel" Width="134" Height="30" Margin="30,0,0,0" Background="#2E7D32" Foreground="White" Click="BtnExcel_Click"/>
+            <Button Content="Экспорт в PDF" Width="130" Height="30" Margin="10,0,0,0" Background="#C62828" Foreground="White" Click="BtnPdf_Click"/>
+        </StackPanel>
+
+        <DataGrid x:Name="ReportsGrid" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True" 
+                  Background="White" RowHeight="35" GridLinesVisibility="Horizontal" BorderThickness="0" Visibility="Collapsed">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Категория" Binding="{Binding Category}" Width="2*"/>
+                <DataGridTextColumn Header="Количество заявок" Binding="{Binding Count}" Width="1.5*"/>
+                <DataGridTextColumn Header="Выручка (руб.)" Binding="{Binding Revenue}" Width="1.5*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

@@ -1,0 +1,117 @@
+﻿<Page x:Class="SmileService.Views.UsersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="930"
+      Title="UsersPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="25,20,25,10">
+            <TextBlock Text="Сотрудники сервисного центра" FontSize="22" FontWeight="Bold" Foreground="#222222" VerticalAlignment="Center"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="25,5,25,15">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Style="{StaticResource MaterialDesignRaisedButton}" 
+                        Content="+ Добавить сотрудника" Click="AddUser_Click"
+                        Background="#1976D2" BorderBrush="#1976D2" 
+                        Height="40" materialDesign:ButtonAssist.CornerRadius="6" FontWeight="Bold"/>
+
+                <Button Style="{StaticResource MaterialDesignOutlinedButton}" 
+                        Content="Обновить список" Click="Refresh_Click"
+                        BorderBrush="#E5E8ED" Foreground="#555555"
+                        Height="40" Margin="15,0,0,0" materialDesign:ButtonAssist.CornerRadius="6"/>
+            </StackPanel>
+        </Grid>
+
+        <Border Grid.Row="2" Background="White" CornerRadius="8" Margin="25,0,25,20" BorderBrush="#E5E8ED" BorderThickness="1">
+            <DataGrid x:Name="UsersGrid" AutoGenerateColumns="False" IsReadOnly="True" 
+                      Background="Transparent" RowHeight="50" GridLinesVisibility="Horizontal" 
+                      HorizontalGridLinesBrush="#F4F6F9" BorderThickness="0" HeadersVisibility="Column">
+
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#F8F9FA"/>
+                        <Setter Property="Foreground" Value="#666666"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="Padding" Value="15,10"/>
+                        <Setter Property="BorderBrush" Value="#E5E8ED"/>
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Padding" Value="15,0"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridCell">
+                                    <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                        <ContentPresenter VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#FFF0F2F5"/>
+                                <Setter Property="Foreground" Value="#1976D2"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="70"/>
+                    <DataGridTextColumn Header="ФИО Сотрудника" Binding="{Binding FullName}" Width="250" FontWeight="SemiBold"/>
+                    <DataGridTextColumn Header="Логин в системе" Binding="{Binding Login}" Width="150"/>
+
+                    <DataGridTemplateColumn Header="Роль" Width="160">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="4" Padding="8,4" HorizontalAlignment="Stretch" Margin="5,2">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding RoleDisplayName}" Value="Администратор">
+                                                    <Setter Property="Background" Value="#E1BEE7"/>
+                                                    <Setter Property="TextBlock.Foreground" Value="#4A148C"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding RoleDisplayName}" Value="Мастер">
+                                                    <Setter Property="Background" Value="#E3F2FD"/>
+                                                    <Setter Property="TextBlock.Foreground" Value="#1976D2"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding RoleDisplayName}" Value="Кладовщик">
+                                                    <Setter Property="Background" Value="#E3F2FD"/>
+                                                    <Setter Property="TextBlock.Foreground" Value="#E65100"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding RoleDisplayName}" Value="Бухгалтер">
+                                                    <Setter Property="Background" Value="#E3F2FD"/>
+                                                    <Setter Property="TextBlock.Foreground" Value="#E65100"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding RoleDisplayName}" Value="Приемщик">
+                                                    <Setter Property="Background" Value="#E3F2FD"/>
+                                                    <Setter Property="TextBlock.Foreground" Value="#2E7D32"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <TextBlock Text="{Binding RoleDisplayName}" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="12"/>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</Page>

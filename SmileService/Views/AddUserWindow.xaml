@@ -1,0 +1,49 @@
+﻿<Window x:Class="SmileService.Views.AddUserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Новый сотрудник" Height="514" Width="400"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Background="#F8F9FA">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Регистрация сотрудника" FontSize="20" FontWeight="Bold" Foreground="#222222" Margin="0,0,0,20"/>
+
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="ФИО Сотрудника" Foreground="#666666" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <TextBox x:Name="TxtFullName" Style="{StaticResource MaterialDesignOutlinedTextBox}" 
+             materialDesign:HintAssist.Hint="Введите полное имя" Background="White" Margin="0,0,0,15"/>
+
+            <TextBlock Text="Логин в системе" Foreground="#666666" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <TextBox x:Name="TxtLogin" Style="{StaticResource MaterialDesignOutlinedTextBox}" 
+             materialDesign:HintAssist.Hint="Например, ivanov_ia" Background="White" Margin="0,0,0,15"/>
+
+            <TextBlock Text="Пароль" Foreground="#666666" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <PasswordBox x:Name="TxtPassword" Style="{StaticResource MaterialDesignOutlinedPasswordBox}" 
+                 materialDesign:HintAssist.Hint="Введите пароль" Background="White" Margin="0,0,0,15"/>
+
+            <TextBlock Text="Роль в системе" Foreground="#666666" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <ComboBox x:Name="ComboRole" Style="{StaticResource MaterialDesignOutlinedComboBox}" Background="White" Margin="0,0,0,15">
+                <ComboBoxItem Content="Мастер"/>
+                <ComboBoxItem Content="Администратор"/>
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Content="Отмена" IsCancel="True" Style="{StaticResource MaterialDesignOutlinedButton}" 
+                    BorderBrush="#E5E8ED" Foreground="#555555" Width="100" Height="40" materialDesign:ButtonAssist.CornerRadius="6"/>
+
+            <Button Content="Сохранить" Click="Save_Click" Style="{StaticResource MaterialDesignRaisedButton}" 
+                    Background="#1976D2" BorderBrush="#1976D2" Width="120" Height="40" Margin="12,0,0,0" 
+                    materialDesign:ButtonAssist.CornerRadius="6" FontWeight="Bold"/>
+        </StackPanel>
+    </Grid>
+</Window>
