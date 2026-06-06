@@ -6,7 +6,6 @@ using SmileService.Models;
 
 namespace SmileService.Views
 {
-    // Класс называется строго UsersPage, как просит MainWindow
     public partial class UsersPage : Page
     {
         public UsersPage()
@@ -47,7 +46,6 @@ namespace SmileService.Views
             LoadUsers();
         }
 
-        // 3. Обработчик кнопки добавления нового пользователя (исправляет ошибку AddUser_Click)
         public void AddUser_Click(object sender, RoutedEventArgs e)
         {
             // Здесь в будущем откроется окно создания сотрудника, а пока заглушка:

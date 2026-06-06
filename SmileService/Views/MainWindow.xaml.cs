@@ -6,6 +6,7 @@ namespace SmileService.Views
 {
     public partial class MainWindow : Window
     {
+        private HomePage _homePage;
         private OrdersPage _ordersPage;
         private UsersPage _usersPage;
         private ClientsPage _clientsPage;
@@ -15,17 +16,24 @@ namespace SmileService.Views
         {
             InitializeComponent();
 
+            _homePage = new HomePage();
             _ordersPage = new OrdersPage();
             _usersPage = new UsersPage();
             _clientsPage = new ClientsPage();
             _reportsPage = new ReportsPage();
 
-            MainFrame.Navigate(_ordersPage);
+            MainFrame.Navigate(_homePage);
 
+            SearchTextBox.Visibility = Visibility.Collapsed;
             SearchTextBox.TextChanged += SearchTextBox_TextChanged;
 
-            // Вызываем применение прав доступа сразу после загрузки
             ApplyPermissions();
+
+            BtnHome.Foreground = new System.Windows.Media.SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#1976D2"));
+            BtnHome.FontWeight = FontWeights.Bold;
+
+            BtnOrders.Foreground = new System.Windows.Media.SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#555555"));
+            BtnOrders.FontWeight = FontWeights.Normal;
         }
 
         private void ApplyPermissions()
@@ -50,7 +58,6 @@ namespace SmileService.Views
             BtnClients.Visibility = Visibility.Visible;
             BtnOrders.Visibility = Visibility.Visible;
             BtnUsers.Visibility = Visibility.Visible;
-            BtnClients.Visibility = Visibility.Visible;
             BtnReports.Visibility = Visibility.Visible;
 
             if (FindName("BtnAddOrder") is Button btnAdd) btnAdd.Visibility = Visibility.Visible;
@@ -82,10 +89,8 @@ namespace SmileService.Views
                     BtnClients.Visibility = Visibility.Collapsed;
                     BtnOrders.Visibility = Visibility.Collapsed;
 
-                    // Автоматически перенаправляем его на пустую страницу (или страницу Склада, когда допишешь)
-                    // Чтобы он не оставался на OrdersPage при старте приложения
                     MainFrame.Content = null;
-                    MessageBox.Show("Доступ ограничен должностью 'Кладовщик'. Открыт только модуль 'Склад'.", "SmileService", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Доступ ограничен.", "SmileService", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
 
                 case "Accountant":
@@ -142,8 +147,18 @@ namespace SmileService.Views
             Button clickedButton = sender as Button;
             if (clickedButton == null) return;
 
-            string menuName = clickedButton.Content.ToString();
+            // 1. Логика видимости строки поиска
+            if (clickedButton == BtnOrders)
+            {
+                SearchTextBox.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SearchTextBox.Visibility = Visibility.Collapsed;
+                SearchTextBox.Text = string.Empty; // Сбрасываем текст при уходе с вкладки
+            }
 
+            // 2. Сбрасываем стиль всех кнопок меню в обычный вид (#555555)
             BtnHome.Foreground = new System.Windows.Media.SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#555555"));
             BtnHome.FontWeight = FontWeights.Normal;
 
@@ -156,29 +171,38 @@ namespace SmileService.Views
             BtnUsers.Foreground = new System.Windows.Media.SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#555555"));
             BtnUsers.FontWeight = FontWeights.Normal;
 
+            BtnReports.Foreground = new System.Windows.Media.SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#555555"));
+            BtnReports.FontWeight = FontWeights.Normal;
+
+            // 3. Подсвечиваем КЛИКНУТУЮ кнопку синим цветом (#1976D2)
             clickedButton.Foreground = new System.Windows.Media.SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#1976D2"));
             clickedButton.FontWeight = FontWeights.Bold;
 
-            if (menuName == "Заявки")
+            // 4. Переключаем страницы (навигация) через наши готовые приватные объекты
+            if (clickedButton == BtnOrders)
             {
                 MainFrame.Navigate(_ordersPage);
             }
-            else if (menuName == "Клиенты")
+            else if (clickedButton == BtnHome)
+            {
+                MainFrame.Navigate(_homePage);
+            }
+            else if (clickedButton == BtnClients)
             {
                 MainFrame.Navigate(_clientsPage);
             }
-            else if (menuName == "Отчеты")
+            else if (clickedButton == BtnReports)
             {
                 MainFrame.Navigate(_reportsPage);
             }
-            else if (menuName == "Сотрудники")
+            else if (clickedButton == BtnUsers)
             {
-                _usersPage.LoadUsers();
+                _usersPage.LoadUsers(); // Обновляем список пользователей перед показом
                 MainFrame.Navigate(_usersPage);
             }
             else
             {
-                MessageBox.Show($"Страница '{menuName}' находится на этапе верстки по макету интерфейса.", "SmileService", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Страница '{clickedButton.Content}' находится на этапе верстки по макету интерфейса.", "SmileService", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

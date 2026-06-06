@@ -26,7 +26,6 @@ namespace SmileService.Views
                         c.Id,
                         c.FullName,
                         c.Phone,
-                        c.Email,
                         // Ищем в таблице Orders все заявки этого клиента через связку устройств 
                         // и выбираем максимальную (последнюю) дату. Если заявок нет — будет null.
                         LastOrderDate = db.Orders

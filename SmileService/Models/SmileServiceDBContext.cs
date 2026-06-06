@@ -38,8 +38,6 @@ public partial class SmileServiceDBContext : DbContext
     {
         modelBuilder.Entity<Client>(entity =>
         {
-            entity.Property(e => e.Address).HasMaxLength(200);
-            entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.FullName).HasMaxLength(150);
             entity.Property(e => e.Phone).HasMaxLength(20);
             entity.Property(e => e.RegistrationDate)

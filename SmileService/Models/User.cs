@@ -27,14 +27,15 @@ public partial class User
     {
         get
         {
-            return Role switch
+            switch (Role)
             {
-                "Admin" => "Администратор",
-                "Master" => "Мастер",
-                "Receptionist" => "Приемщик",
-                "Storekeeper" => "Кладовщик",
-                _ => Role // Если роль какая-то другая, вернет её как есть
-            };
+                case "Admin": return "Администратор";
+                case "Master": return "Мастер";
+                case "Storekeeper": return "Кладовщик";
+                case "Receptionist": return "Приемщик";
+                case "Accountant": return "Бухгалтер";
+                default: return Role;
+            }
         }
     }
 }

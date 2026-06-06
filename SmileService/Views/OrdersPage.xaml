@@ -20,9 +20,6 @@
         <Grid Grid.Row="0" Margin="25,20,25,10">
             <TextBlock Text="Управление заявками" FontSize="22" FontWeight="Bold" Foreground="#222222" VerticalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Border Background="White" BorderBrush="#E5E8ED" BorderThickness="1" CornerRadius="6" Padding="10,5">
-                    <TextBlock Text="01.03.2026 – 23.04.2026" VerticalAlignment="Center" Foreground="#555555"/>
-                </Border>
             </StackPanel>
         </Grid>
 
@@ -34,9 +31,9 @@
                         Height="40" materialDesign:ButtonAssist.CornerRadius="6" FontWeight="Bold"/>
 
                 <ComboBox x:Name="StatusFilterComboBox" Width="150" Margin="15,0,0,0" Height="56"
-                          materialDesign:HintAssist.Hint="Статус: Все" SelectionChanged="FilterChanged"
+                          materialDesign:HintAssist.Hint="Статус:" SelectionChanged="FilterChanged"
                           Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                    <ComboBoxItem Content="Все статусы"/>
+                    <ComboBoxItem Content="Все"/>
                     <ComboBoxItem Content="Новая"/>
                     <ComboBoxItem Content="В работе"/>
                     <ComboBoxItem Content="Выдан"/>
