@@ -38,14 +38,12 @@ namespace SmileService.Views
 
         private void ApplyPermissions()
         {
-            // Безопасность: если сессия пуста — закрываем
             if (UserSession.CurrentUser == null)
             {
                 Application.Current.Shutdown();
                 return;
             }
 
-            // Выводим реальное ФИО сотрудника в шапку
             if (TxtUserName != null)
             {
                 TxtUserName.Text = UserSession.CurrentUser.FullName;
@@ -53,7 +51,6 @@ namespace SmileService.Views
 
             string role = UserSession.CurrentUser.Role;
 
-            // Сначала сбрасываем видимость всех вкладок в базовое состояние
             BtnHome.Visibility = Visibility.Visible;
             BtnClients.Visibility = Visibility.Visible;
             BtnOrders.Visibility = Visibility.Visible;
@@ -68,23 +65,19 @@ namespace SmileService.Views
                     break;
 
                 case "Receptionist":
-                    // Приёмщик: заявки, клиенты
                     BtnUsers.Visibility = Visibility.Collapsed;
                     BtnReports.Visibility = Visibility.Collapsed;
                     break;
 
                 case "Master":
-                    // Мастер: только заявки
                     BtnUsers.Visibility = Visibility.Collapsed;
                     BtnClients.Visibility = Visibility.Collapsed;
                     BtnReports.Visibility = Visibility.Collapsed;
-                    // Мастер не принимает новые заказы у клиентов у стойки, прячем кнопку создания
+
                     if (FindName("BtnAddOrder") is Button btnAddM) btnAddM.Visibility = Visibility.Collapsed;
                     break;
 
                 case "Storekeeper":
-                    // Кладовщик: Работает ТОЛЬКО со складом.
-                    // Скрываем вообще все клиентские и кадровые вкладки.
                     BtnUsers.Visibility = Visibility.Collapsed;
                     BtnClients.Visibility = Visibility.Collapsed;
                     BtnOrders.Visibility = Visibility.Collapsed;
@@ -94,7 +87,6 @@ namespace SmileService.Views
                     break;
 
                 case "Accountant":
-                    // Бухгалтер: Финансы и заявки (для проверки чеков/оплат). Персонал скрыт.
                     BtnUsers.Visibility = Visibility.Collapsed;
                     BtnClients.Visibility = Visibility.Collapsed;
 
@@ -102,7 +94,6 @@ namespace SmileService.Views
                     break;
 
                 default:
-                    // Неизвестная роль — полная изоляция в целях безопасности
                     BtnUsers.Visibility = Visibility.Collapsed;
                     BtnClients.Visibility = Visibility.Collapsed;
                     BtnOrders.Visibility = Visibility.Collapsed;
@@ -114,7 +105,6 @@ namespace SmileService.Views
 
         private void BtnLogout_Click(object sender, RoutedEventArgs e)
         {
-            // 1. Спрашиваем подтверждение у пользователя (для удобства)
             MessageBoxResult result = MessageBox.Show("Вы действительно хотите выйти из учетной записи?",
                                                       "Выход из системы",
                                                       MessageBoxButton.YesNo,
@@ -122,14 +112,11 @@ namespace SmileService.Views
 
             if (result == MessageBoxResult.Yes)
             {
-                // 2. Стираем текущую сессию
                 UserSession.CurrentUser = null;
 
-                // 3. Создаем и показываем окно логина из папки Views
                 SmileService.Views.LoginWindow loginWindow = new SmileService.Views.LoginWindow();
                 loginWindow.Show();
 
-                // 4. Закрываем текущее главное окно
                 this.Close();
             }
         }
@@ -147,7 +134,6 @@ namespace SmileService.Views
             Button clickedButton = sender as Button;
             if (clickedButton == null) return;
 
-            // 1. Логика видимости строки поиска
             if (clickedButton == BtnOrders)
             {
                 SearchTextBox.Visibility = Visibility.Visible;
@@ -155,10 +141,9 @@ namespace SmileService.Views
             else
             {
                 SearchTextBox.Visibility = Visibility.Collapsed;
-                SearchTextBox.Text = string.Empty; // Сбрасываем текст при уходе с вкладки
+                SearchTextBox.Text = string.Empty;
             }
 
-            // 2. Сбрасываем стиль всех кнопок меню в обычный вид (#555555)
             BtnHome.Foreground = new System.Windows.Media.SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#555555"));
             BtnHome.FontWeight = FontWeights.Normal;
 
@@ -174,11 +159,9 @@ namespace SmileService.Views
             BtnReports.Foreground = new System.Windows.Media.SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#555555"));
             BtnReports.FontWeight = FontWeights.Normal;
 
-            // 3. Подсвечиваем КЛИКНУТУЮ кнопку синим цветом (#1976D2)
             clickedButton.Foreground = new System.Windows.Media.SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#1976D2"));
             clickedButton.FontWeight = FontWeights.Bold;
 
-            // 4. Переключаем страницы (навигация) через наши готовые приватные объекты
             if (clickedButton == BtnOrders)
             {
                 MainFrame.Navigate(_ordersPage);
@@ -197,7 +180,7 @@ namespace SmileService.Views
             }
             else if (clickedButton == BtnUsers)
             {
-                _usersPage.LoadUsers(); // Обновляем список пользователей перед показом
+                _usersPage.LoadUsers();
                 MainFrame.Navigate(_usersPage);
             }
             else
