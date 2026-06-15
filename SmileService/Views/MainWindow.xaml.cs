@@ -14,6 +14,11 @@ namespace SmileService.Views
 
         public MainWindow()
         {
+            using (var db = new SmileServiceDBContext())
+            {
+                db.Database.EnsureCreated();
+            }
+
             InitializeComponent();
 
             _homePage = new HomePage();
