@@ -20,23 +20,30 @@
 
         <Border Grid.Row="0" Background="White" BorderBrush="#E5E8ED" BorderThickness="0,0,0,1">
             <Grid Margin="15,0">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <TextBox x:Name="SearchTextBox" Width="300" 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,20,0">
+                    <TextBox x:Name="SearchTextBox" Width="220" 
                              materialDesign:HintAssist.Hint="Поиск заявки..." 
                              materialDesign:TextFieldAssist.HasClearButton="True"
                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
                              Height="40" Padding="10,8"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button x:Name="BtnHome" Style="{StaticResource MaterialDesignFlatButton}" Content="Главная" Click="MenuButton_Click" Foreground="#555555" Margin="5,0"/>
                     <Button x:Name="BtnClients" Style="{StaticResource MaterialDesignFlatButton}" Content="Клиенты" Click="MenuButton_Click" Foreground="#555555" Margin="5,0"/>
                     <Button x:Name="BtnOrders" Style="{StaticResource MaterialDesignFlatButton}" Content="Заявки" Click="MenuButton_Click" Foreground="#1976D2" FontWeight="Bold" Margin="5,0"/>
                     <Button x:Name="BtnUsers" Style="{StaticResource MaterialDesignFlatButton}" Content="Сотрудники" Click="MenuButton_Click" Foreground="#555555" Margin="5,0"/>
-                    <Button x:Name="BtnReports" Style="{StaticResource MaterialDesignFlatButton}" Content="Отчеты" Click="MenuButton_Click" Foreground="#555555"/>
+                    <Button x:Name="BtnReports" Style="{StaticResource MaterialDesignFlatButton}" Content="Отчеты" Click="MenuButton_Click" Foreground="#555555" Margin="5,0"/>
+                    <Button x:Name="BtnWarehouse" Style="{StaticResource MaterialDesignFlatButton}" Content="Склад" Click="BtnWarehouse_Click" Foreground="#555555" Margin="5,0"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,20,0">
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,5,0">
                     <TextBlock x:Name="TxtUserName" Text="ФИО Пользователя" VerticalAlignment="Center" Margin="0,0,15,0" Foreground="#333333" FontWeight="SemiBold"/>
                     <Button x:Name="BtnLogout" 
                             Content="Выйти" 

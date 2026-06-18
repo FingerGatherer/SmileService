@@ -106,16 +106,16 @@
                                 </Border>
                                 <DataTemplate.Triggers>
                                     <DataTrigger Binding="{Binding Status}" Value="Новая">
-                                        <Setter TargetName="StatusBorder" Property="Background" Value="#E3F2FD"/>
-                                        <Setter TargetName="StatusText" Property="Foreground" Value="#1976D2"/>
+                                        <Setter TargetName="StatusBorder" Property="Background" Value="#816BFF"/>
+                                        <Setter TargetName="StatusText" Property="Foreground" Value="#000000"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Status}" Value="В работе">
-                                        <Setter TargetName="StatusBorder" Property="Background" Value="#FFF3E0"/>
-                                        <Setter TargetName="StatusText" Property="Foreground" Value="#E65100"/>
+                                        <Setter TargetName="StatusBorder" Property="Background" Value="#DCEB00"/>
+                                        <Setter TargetName="StatusText" Property="Foreground" Value="#000000"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Status}" Value="Выдан">
-                                        <Setter TargetName="StatusBorder" Property="Background" Value="#E8F5E9"/>
-                                        <Setter TargetName="StatusText" Property="Foreground" Value="#2E7D32"/>
+                                        <Setter TargetName="StatusBorder" Property="Background" Value="#85FF29"/>
+                                        <Setter TargetName="StatusText" Property="Foreground" Value="#000000"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Status}" Value="Архив">
                                         <Setter TargetName="StatusBorder" Property="Background" Value="#F5F5F5"/>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using SmileService.Models; // Подключаем контекст БД
+using SmileService.Models;
 
 namespace SmileService.Views
 {
@@ -27,19 +27,15 @@ namespace SmileService.Views
             {
                 using (SmileServiceDBContext db = new SmileServiceDBContext())
                 {
-                    // Ищем сотрудника в таблице Users по логину и паролю
                     var user = db.Users.FirstOrDefault(u => u.Login == login && u.Password == password);
 
                     if (user != null)
                     {
-                        // Запоминаем текущую сессию сотрудника
                         UserSession.CurrentUser = user;
 
-                        // Создаем и открываем главное окно
                         MainWindow mainWindow = new MainWindow();
                         mainWindow.Show();
 
-                        // Закрываем окно авторизации
                         this.Close();
                     }
                     else

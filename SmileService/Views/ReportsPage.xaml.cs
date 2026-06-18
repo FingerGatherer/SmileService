@@ -10,14 +10,13 @@ namespace SmileService.Views
         public ReportsPage()
         {
             InitializeComponent();
-            // Устанавливаем дефолтные даты (текущий месяц)
+
             DpStart.SelectedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             DpEnd.SelectedDate = DateTime.Now;
         }
 
         private void BtnGenerate_Click(object sender, RoutedEventArgs e)
         {
-            // Показываем таблицу с красивыми агрегированными данными для диплома
             ReportsGrid.Visibility = Visibility.Visible;
 
             var mockData = new List<object>

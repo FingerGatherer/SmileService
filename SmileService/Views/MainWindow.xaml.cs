@@ -1,6 +1,7 @@
-﻿using System.Windows;
+﻿using SmileService.Models;
+using System.Windows;
 using System.Windows.Controls;
-using SmileService.Models;
+using System.Windows.Media;
 
 namespace SmileService.Views
 {
@@ -11,6 +12,7 @@ namespace SmileService.Views
         private UsersPage _usersPage;
         private ClientsPage _clientsPage;
         private ReportsPage _reportsPage;
+        private WarehousePage _warehousePage;
 
         public MainWindow()
         {
@@ -26,6 +28,7 @@ namespace SmileService.Views
             _usersPage = new UsersPage();
             _clientsPage = new ClientsPage();
             _reportsPage = new ReportsPage();
+            _warehousePage = new WarehousePage();
 
             MainFrame.Navigate(_homePage);
 
@@ -72,28 +75,35 @@ namespace SmileService.Views
                 case "Receptionist":
                     BtnUsers.Visibility = Visibility.Collapsed;
                     BtnReports.Visibility = Visibility.Collapsed;
+                    BtnWarehouse.Visibility = Visibility.Collapsed;
                     break;
 
                 case "Master":
                     BtnUsers.Visibility = Visibility.Collapsed;
                     BtnClients.Visibility = Visibility.Collapsed;
                     BtnReports.Visibility = Visibility.Collapsed;
+                    BtnWarehouse.Visibility = Visibility.Collapsed;
 
                     if (FindName("BtnAddOrder") is Button btnAddM) btnAddM.Visibility = Visibility.Collapsed;
                     break;
 
                 case "Storekeeper":
+                    BtnHome.Visibility = Visibility.Collapsed;
                     BtnUsers.Visibility = Visibility.Collapsed;
                     BtnClients.Visibility = Visibility.Collapsed;
                     BtnOrders.Visibility = Visibility.Collapsed;
+                    BtnReports.Visibility = Visibility.Collapsed;
 
-                    MainFrame.Content = null;
-                    MessageBox.Show("Доступ ограничен.", "SmileService", MessageBoxButton.OK, MessageBoxImage.Information);
+                    BtnWarehouse.Visibility = Visibility.Visible;
+
+                    MainFrame.Navigate(new Views.WarehousePage());
+
                     break;
 
                 case "Accountant":
                     BtnUsers.Visibility = Visibility.Collapsed;
                     BtnClients.Visibility = Visibility.Collapsed;
+                    BtnWarehouse.Visibility = Visibility.Collapsed;
 
                     if (FindName("BtnAddOrder") is Button btnAddA) btnAddA.Visibility = Visibility.Collapsed;
                     break;
@@ -106,6 +116,13 @@ namespace SmileService.Views
                     MainFrame.Content = null;
                     break;
             }
+        }
+
+        private void BtnWarehouse_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new Views.WarehousePage());
+
+            BtnWarehouse.Foreground = (Brush)new BrushConverter().ConvertFromString("#FF1976D2");
         }
 
         private void BtnLogout_Click(object sender, RoutedEventArgs e)

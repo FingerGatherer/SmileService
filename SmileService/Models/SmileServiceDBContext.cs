@@ -31,7 +31,12 @@ public partial class SmileServiceDBContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Root\Documents\SmileService\SmileService\SmileServiceDB.mdf;Integrated Security=True;Connect Timeout=30;Encrypt=False");
+        if (!optionsBuilder.IsConfigured)
+        {
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=SmileServiceDB_Final;Integrated Security=True;Connect Timeout=30;Encrypt=False";
+
+            optionsBuilder.UseSqlServer(connectionString);
+        }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

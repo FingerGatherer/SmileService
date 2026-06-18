@@ -59,7 +59,7 @@
                     <StackPanel Margin="0,0,10,0">
                         <TextBlock Text="Текущий статус" FontWeight="Bold" Margin="0,0,0,5"/>
                         <ComboBox x:Name="ComboStatus" Height="35">
-                            <ComboBoxItem Content="Принят" Background="#E3F2FD" FontWeight="Bold"/>
+                            <ComboBoxItem Content="Новая" Background="#E3F2FD" FontWeight="Bold"/>
                             <ComboBoxItem Content="В работе" Background="#FFF3E0" FontWeight="Bold"/>
                             <ComboBoxItem Content="Выдан" Background="#E8F5E9" FontWeight="Bold"/>
                             <ComboBoxItem Content="Архив" Background="#F5F5F5" FontWeight="Bold"/>
@@ -78,7 +78,7 @@
         </ScrollViewer>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
-            <Button Content="Отмена" Width="100" Height="35" Background="Transparent" Foreground="#555555" BorderBrush="#777777" Click="BtnCancel_Click" Margin="0,0,10,0"/>
+            <Button Content="Отмена" Width="100" Height="35" Style="{StaticResource MaterialDesignFlatButton}" Foreground="#555555" Click="BtnCancel_Click" Margin="0,0,10,0"/>
             <Button Content="Сохранить" Width="120" Height="35" Background="#1976D2" Foreground="White" Click="BtnSave_Click"/>
         </StackPanel>
     </Grid>

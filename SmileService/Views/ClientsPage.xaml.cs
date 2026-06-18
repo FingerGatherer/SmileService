@@ -20,20 +20,17 @@ namespace SmileService.Views
             {
                 using (SmileServiceDBContext db = new SmileServiceDBContext())
                 {
-                    // Берем клиентов и динамически подтягиваем к каждому дату его последнего заказа
                     var clientsWithDates = db.Clients.Select(c => new
                     {
                         c.Id,
                         c.FullName,
                         c.Phone,
-                        // Ищем в таблице Orders все заявки этого клиента через связку устройств 
-                        // и выбираем максимальную (последнюю) дату. Если заявок нет — будет null.
+
                         LastOrderDate = db.Orders
                             .Where(o => o.Device.ClientId == c.Id)
                             .Max(o => (DateTime?)o.CreatedDate)
                     }).ToList();
 
-                    // Запихиваем этот красивый результат в таблицу
                     ClientsGrid.ItemsSource = clientsWithDates;
                 }
             }
